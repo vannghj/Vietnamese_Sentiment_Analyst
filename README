@@ -1,45 +1,27 @@
 # Vietnamese Sentiment Analysis
 
-## Overview
-
-Vietnamese Sentiment Analysis is a Machine Learning project that classifies Vietnamese customer reviews into three sentiment categories:
+A Machine Learning project for classifying Vietnamese customer reviews into three sentiment categories:
 
 * Negative (0)
 * Neutral (1)
 * Positive (2)
 
-The project uses a traditional NLP pipeline including text preprocessing, TF-IDF feature extraction, and machine learning classifiers such as Logistic Regression and Linear SVM.
-
----
-
 ## Dataset
 
-The dataset contains customer reviews with the following columns:
+* ~31,000 Vietnamese reviews
+* 3 sentiment classes
+* Features: `content`, `label`, `star`
 
-| Column  | Description          |
-| ------- | -------------------- |
-| content | Customer review text |
-| label   | Sentiment label      |
-| star    | Rating score         |
+## Technologies
 
-Label encoding:
-
-```text
-0 = Negative
-1 = Neutral
-2 = Positive
-```
-
-Dataset size:
-
-* Total samples: ~31,000 reviews
-* Classes: 3
-
----
+* Python
+* Pandas
+* Scikit-learn
+* TF-IDF
+* Joblib
 
 ## Project Structure
 
-```text
 Vietnamese_Sentiment_Analyst/
 │
 ├── data/
@@ -60,138 +42,36 @@ Vietnamese_Sentiment_Analyst/
 ├── main.py
 ├── requirements.txt
 └── README.md
-```
-
----
-
-## Features
-
-* Vietnamese text preprocessing
-* Text cleaning and normalization
-* TF-IDF vectorization
-* Multiple machine learning models
-* Model persistence using Joblib
-* Sentiment prediction for new reviews
-
----
-
-## Technologies
-
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* Joblib
-
----
-
-## Machine Learning Pipeline
-
-```text
-Raw Text
-    ↓
-Text Preprocessing
-    ↓
-TF-IDF Vectorization
-    ↓
-Model Training
-    ↓
-Sentiment Prediction
-```
-
----
 
 ## Model Performance
 
-### LinearSVC
-
-```text
-Accuracy: 75.06%
-
-Classification Report
-
-Negative (0)
-Precision: 0.65
-Recall:    0.70
-F1-score:  0.67
-
-Neutral (1)
-Precision: 0.35
-Recall:    0.36
-F1-score:  0.35
-
-Positive (2)
-Precision: 0.89
-Recall:    0.86
-F1-score:  0.87
-
-Macro F1-score: 0.63
-```
-
----
+| Metric         | Value  |
+| -------------- | ------ |
+| Accuracy       | 75.06% |
+| Macro F1-Score | 0.63   |
 
 ## Installation
-
-Clone the repository:
-
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment:
-
-Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
 ## Training
-
-Run:
 
 ```bash
 python main.py
 ```
-
-This will:
-
-1. Load dataset
-2. Preprocess text
-3. Train model
-4. Save model and TF-IDF vectorizer
-
-Generated files:
-
-```text
-models/
-├── model.pkl
-└── tfidf.pkl
-```
-
----
 
 ## Prediction Example
 
 ```python
 from src.predict import predict_sentiment
 
-review = "Sản phẩm rất đẹp, giao hàng nhanh"
-
-result = predict_sentiment(review)
-
-print(result)
+print(
+    predict_sentiment(
+        "Sản phẩm rất đẹp, giao hàng nhanh"
+    )
+)
 ```
 
 Output:
@@ -200,21 +80,12 @@ Output:
 positive
 ```
 
----
-
 ## Future Improvements
 
-* Improve Vietnamese text normalization
-* Hyperparameter tuning
 * PhoBERT implementation
-* Web application deployment
-* REST API using FastAPI
-* Streamlit interface
-
----
+* Hyperparameter tuning
+* Web deployment
 
 ## Author
 
 Phan Van Nghi
-
-
