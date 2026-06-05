@@ -1,91 +1,117 @@
-# Vietnamese Sentiment Analysis
+Vietnamese Sentiment Analysis using PhoBERT
 
-A Machine Learning project for classifying Vietnamese customer reviews into three sentiment categories:
+This project is a deep learning-based Vietnamese sentiment analysis system using PhoBERT (Transformer model) fine-tuned on a labeled dataset.
 
-* Negative (0)
-* Neutral (1)
-* Positive (2)
+It classifies text into 3 sentiment categories:
 
-## Dataset
+😞 Negative
+😐 Neutral
+😄 Positive
+🧠 Model Overview
 
-* ~31,000 Vietnamese reviews
-* 3 sentiment classes
-* Features: `content`, `label`, `star`
+The project uses:
 
-## Technologies
+PhoBERT (vinai/phobert-base)
+Hugging Face Transformers
+PyTorch
+Fine-tuning on Vietnamese sentiment dataset
 
-* Python
-* Pandas
-* Scikit-learn
-* TF-IDF
-* Joblib
+Compared to traditional ML methods (TF-IDF + classical models), PhoBERT provides better understanding of Vietnamese context.
 
-## Project Structure
+📊 Dataset
 
+Input format:
+
+content	label
+sản phẩm rất tốt	2
+bình thường	1
+quá tệ	0
+
+Label mapping:
+
+0 → Negative
+1 → Neutral
+2 → Positive
+⚠️ Data Imbalance
+
+The dataset is imbalanced:
+
+Positive : 20093  
+Negative : 6669  
+Neutral  : 4698  
+
+This causes lower performance on the Neutral class.
+
+⚙️ Preprocessing
+
+Steps:
+
+Lowercasing text
+Removing URLs, special characters, numbers
+Tokenizing Vietnamese text using underthesea
+Encoding labels
+🏋️ Training
+
+To train the model:
+
+python main.py
+Training configuration:
+Model: PhoBERT base
+Max length: 128
+Batch size: 8
+Epochs: 3
+Trainer API (Hugging Face)
+📈 Performance
+
+Example evaluation results:
+
+Accuracy: ~0.80
+
+Positive F1-score: 0.90  
+Negative F1-score: 0.77  
+Neutral F1-score: 0.35  
+
+Model performs well on Positive and Negative classes but struggles with Neutral due to imbalance.
+
+🧪 Inference (Testing)
+
+Run prediction script:
+
+python test_predict.py
+
+Example:
+
+from predict import predict_sentiment
+
+print(predict_sentiment("Sản phẩm rất đẹp, mình rất hài lòng"))
+# Positive
+📦 Installation
+pip install -r requirements.txt
+
+Main dependencies:
+
+transformers
+torch
+scikit-learn
+pandas
+underthesea
+📁 Project Structure
 Vietnamese_Sentiment_Analyst/
 │
 ├── data/
-│   └── reviews.csv
+│   └── data.csv
 │
 ├── models/
-│   ├── model.pkl
-│   └── tfidf.pkl
+│   └── phobert_sentiment/
 │
 ├── src/
 │   ├── preprocess.py
 │   ├── train.py
-│   └── predict.py
 │
 ├── utils/
-│   └── io.py
+│   ├── io.py
 │
+├── predict.py
+├── test_predict.py
 ├── main.py
-├── requirements.txt
 └── README.md
-
-## Model Performance
-
-| Metric         | Value  |
-| -------------- | ------ |
-| Accuracy       | 75.06% |
-| Macro F1-Score | 0.63   |
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-## Training
-
-```bash
-python main.py
-```
-
-## Prediction Example
-
-```python
-from src.predict import predict_sentiment
-
-print(
-    predict_sentiment(
-        "Sản phẩm rất đẹp, giao hàng nhanh"
-    )
-)
-```
-
-Output:
-
-```text
-positive
-```
-
-## Future Improvements
-
-* PhoBERT implementation
-* Hyperparameter tuning
-* Web deployment
-
-## Author
-
-Phan Van Nghi
